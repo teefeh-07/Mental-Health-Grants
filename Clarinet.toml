@@ -9,6 +9,21 @@ requirements = []
 path = 'contracts/grants-dao.clar'
 clarity_version = 4
 epoch = '3.3'
+
+[contracts.proposal-manager]
+path = 'contracts/proposal-manager.clar'
+clarity_version = 4
+epoch = '3.3'
+
+[contracts.treasury-manager]
+path = 'contracts/treasury-manager.clar'
+clarity_version = 4
+epoch = '3.3'
+
+[contracts.voting-system]
+path = 'contracts/voting-system.clar'
+clarity_version = 4
+epoch = '3.3'
 [repl.analysis]
 passes = ['check_checker']
 
