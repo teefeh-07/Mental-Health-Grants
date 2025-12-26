@@ -43,7 +43,9 @@
 )
 
 ;; read only functions
-;;
+(define-read-only (get-name)
+  (ok "Mental Health Governance")
+)
 
 ;; private functions
 ;;
