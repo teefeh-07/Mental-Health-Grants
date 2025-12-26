@@ -135,6 +135,9 @@
 
 ;; read only functions
 ;;
+(define-read-only (get-proposal (proposal-id uint))
+  (map-get? proposals proposal-id)
+)
 
 ;; private functions
 ;;
