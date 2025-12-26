@@ -1,4 +1,5 @@
 import React from 'react';
+import { voteOnProposalTx } from '../services/contractService';
 
 export interface Proposal {
     id: number;
@@ -38,9 +39,22 @@ export const ProposalCard = ({ proposal }: { proposal: Proposal }) => {
                 </span>
             </div>
 
-            <button className="glass-button" style={{ width: '100%', marginTop: '1.5rem', padding: '10px' }}>
-                View Details & Vote
-            </button>
+            <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1.5rem' }}>
+                <button
+                    className="btn-primary"
+                    style={{ flex: 1, padding: '10px' }}
+                    onClick={() => voteOnProposalTx(proposal.id, true)}
+                >
+                    Vote Yes
+                </button>
+                <button
+                    className="glass-button"
+                    style={{ flex: 1, padding: '10px' }}
+                    onClick={() => voteOnProposalTx(proposal.id, false)}
+                >
+                    Vote No
+                </button>
+            </div>
         </div>
     );
 };
