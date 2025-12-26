@@ -1,4 +1,5 @@
 import React from 'react';
+import { ConnectButton } from './ConnectButton';
 
 export const Navbar = () => {
     return (
@@ -15,9 +16,7 @@ export const Navbar = () => {
                 </h2>
             </div>
             <div>
-                <button className="glass-button">
-                    Connect Wallet
-                </button>
+                <ConnectButton />
             </div>
         </nav>
     );
