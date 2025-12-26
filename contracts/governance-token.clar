@@ -42,6 +42,13 @@
   )
 )
 
+(define-public (mint (amount uint) (recipient principal))
+  (begin
+    (asserts! (is-eq tx-sender contract-owner) err-owner-only)
+    (ft-mint? mhg-token amount recipient)
+  )
+)
+
 ;; read only functions
 (define-read-only (get-name)
   (ok "Mental Health Governance")
