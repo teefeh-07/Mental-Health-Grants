@@ -10,3 +10,14 @@ Empowering decentralized, transparent, and community-driven funding for mental h
 - **Connectivity:** @stacks/connect, @stacks/transactions
 - **Indexing:** Hiro Chainhooks
 
+## 🏃 Getting Started
+
+### Prerequisites
+- Node.js (v18+)
+- Clarinet (for contract development)
+
+### Setup
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Start the frontend: `cd frontend && npm run dev`
+
