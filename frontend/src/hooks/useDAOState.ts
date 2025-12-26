@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react';
-import { callReadOnlyFunction, cvToJSON } from '@stacks/transactions';
+import { callReadOnlyFunction, cvToJSON, principalCV } from '@stacks/transactions';
 import { NETWORK, CONTRACT_ADDRESS, DAO_CONTRACT_NAME } from '../config/stacksConfig';
 
 export const useDAOState = (userAddress?: string) => {
     const [proposalCount, setProposalCount] = useState<number>(0);
+    const [userVotingPower, setUserVotingPower] = useState<number>(0);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchProposalCount = async () => {
+        const fetchData = async () => {
             try {
-                const result = await callReadOnlyFunction({
+                const countResult = await callReadOnlyFunction({
                     network: NETWORK,
                     contractAddress: CONTRACT_ADDRESS,
                     contractName: DAO_CONTRACT_NAME,
@@ -17,17 +18,28 @@ export const useDAOState = (userAddress?: string) => {
                     functionArgs: [],
                     senderAddress: CONTRACT_ADDRESS,
                 });
-                const count = cvToJSON(result).value;
-                setProposalCount(parseInt(count));
+                setProposalCount(parseInt(cvToJSON(countResult).value));
+
+                if (userAddress) {
+                    const powerResult = await callReadOnlyFunction({
+                        network: NETWORK,
+                        contractAddress: CONTRACT_ADDRESS,
+                        contractName: DAO_CONTRACT_NAME,
+                        functionName: 'get-voting-power',
+                        functionArgs: [principalCV(userAddress)],
+                        senderAddress: userAddress,
+                    });
+                    setUserVotingPower(parseInt(cvToJSON(powerResult).value.value));
+                }
             } catch (err) {
-                console.error('Error fetching proposal count:', err);
+                console.error('Error fetching DAO state:', err);
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchProposalCount();
-    }, []);
+        fetchData();
+    }, [userAddress]);
 
-    return { proposalCount, loading };
+    return { proposalCount, userVotingPower, loading };
 };
