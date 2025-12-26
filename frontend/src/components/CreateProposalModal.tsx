@@ -5,6 +5,7 @@ export const CreateProposalModal = ({ onClose }: { onClose: () => void }) => {
     const [description, setDescription] = useState('');
     const [amount, setAmount] = useState('');
     const [recipient, setRecipient] = useState('');
+    const [category, setCategory] = useState('Youth');
 
     return (
         <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
@@ -44,6 +45,17 @@ export const CreateProposalModal = ({ onClose }: { onClose: () => void }) => {
                         value={recipient}
                         onChange={(e) => setRecipient(e.target.value)}
                     />
+                    <select
+                        className="glass-panel"
+                        style={{ padding: '1rem', border: 'var(--border-glass)', background: 'rgba(255,255,255,0.05)', color: 'white' }}
+                        value={category}
+                        onChange={(e) => setCategory(e.target.value)}
+                    >
+                        <option value="Youth">Youth</option>
+                        <option value="Crisis Support">Crisis Support</option>
+                        <option value="Research">Research</option>
+                        <option value="Community">Community</option>
+                    </select>
                     <button className="btn-primary" style={{ marginTop: '1rem' }}>
                         Submit Proposal
                     </button>
