@@ -143,6 +143,10 @@
   (var-get proposal-count)
 )
 
+(define-read-only (get-voting-power (member principal))
+  (ok (default-to u0 (map-get? member-voting-power member)))
+)
+
 ;; private functions
 ;;
 
