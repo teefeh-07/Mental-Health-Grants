@@ -27,6 +27,31 @@
 
 ;; data maps
 ;;
+(define-map proposals
+  uint
+  {
+    proposer: principal,
+    title: (string-ascii 100),
+    description: (string-utf8 500),
+    amount: uint,
+    recipient: principal,
+    start-block: uint,
+    end-block: uint,
+    executed: bool,
+    yes-votes: uint,
+    no-votes: uint
+  }
+)
+
+(define-map votes
+  { proposal-id: uint, voter: principal }
+  { vote: bool, amount: uint }
+)
+
+(define-map member-voting-power
+  principal
+  uint
+)
 
 ;; public functions
 ;;
