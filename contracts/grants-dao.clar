@@ -87,7 +87,7 @@
   (let
     (
       (proposal (unwrap! (map-get? proposals proposal-id) err-not-found))
-      (voter-power (default-to u0 (map-get? member-voting-power tx-sender)))
+      (voter-power (unwrap! (contract-call? .governance-token get-balance tx-sender) err-unauthorized))
     )
     (asserts! (> voter-power u0) err-unauthorized)
     (asserts! (<= block-height (get end-block proposal)) err-unauthorized) ;; voting ended
