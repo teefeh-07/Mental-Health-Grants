@@ -2,11 +2,22 @@ import { useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { CreateProposalModal } from './components/CreateProposalModal';
 import { ProposalFilters } from './components/ProposalFilters';
+import { ProposalCard, Proposal } from './components/ProposalCard';
 import './index.css';
+
+const MOCK_PROPOSALS: (Proposal & { category: string })[] = [
+  { id: 1, title: 'Youth Mental Health Support', amount: 5000, status: 'active', votes: { yes: 1200, no: 300 }, category: 'Youth' },
+  { id: 2, title: 'Crisis Hotline Expansion', amount: 15000, status: 'active', votes: { yes: 4500, no: 100 }, category: 'Crisis Support' },
+  { id: 3, title: 'Psychology Research Fund', amount: 8000, status: 'passed', votes: { yes: 7000, no: 200 }, category: 'Research' },
+];
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState('All');
+
+  const filteredProposals = activeCategory === 'All'
+    ? MOCK_PROPOSALS
+    : MOCK_PROPOSALS.filter(p => p.category === activeCategory);
   return (
     <div className="container" style={{ padding: '2rem 0' }}>
       <Navbar />
@@ -20,10 +31,14 @@ function App() {
               onCategoryChange={setActiveCategory}
             />
           </div>
-          <p style={{ marginTop: '1rem' }}>No active proposals found in <strong>{activeCategory}</strong>. Submit the first one to get started.</p>
-
           <div style={{ marginTop: '2rem' }}>
-            {/* Proposal cards will be mapped here */}
+            {filteredProposals.length > 0 ? (
+              filteredProposals.map(proposal => (
+                <ProposalCard key={proposal.id} proposal={proposal} />
+              ))
+            ) : (
+              <p style={{ marginTop: '1rem' }}>No active proposals found in <strong>{activeCategory}</strong>. Submit the first one to get started.</p>
+            )}
           </div>
         </section>
 
