@@ -43,7 +43,17 @@
 )
 
 ;; read only functions
-;;
+(define-read-only (get-name)
+  (ok "Mental Health Governance")
+)
+
+(define-read-only (get-symbol)
+  (ok "MHG")
+)
+
+(define-read-only (get-decimals)
+  (ok u6)
+)
 
 ;; private functions
 ;;
