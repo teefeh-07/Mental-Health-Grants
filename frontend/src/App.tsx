@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { CreateProposalModal } from './components/CreateProposalModal';
+import { ProposalFilters } from './components/ProposalFilters';
 import './index.css';
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeCategory, setActiveCategory] = useState('All');
   return (
     <div className="container" style={{ padding: '2rem 0' }}>
       <Navbar />
@@ -12,7 +14,13 @@ function App() {
       <main className="grid-dashboard">
         <section className="glass-panel" style={{ padding: '2rem' }}>
           <h2>Active Grant Proposals</h2>
-          <p style={{ marginTop: '1rem' }}>No active proposals found. Submit the first one to get started.</p>
+          <div style={{ marginTop: '1.5rem' }}>
+            <ProposalFilters
+              activeCategory={activeCategory}
+              onCategoryChange={setActiveCategory}
+            />
+          </div>
+          <p style={{ marginTop: '1rem' }}>No active proposals found in <strong>{activeCategory}</strong>. Submit the first one to get started.</p>
 
           <div style={{ marginTop: '2rem' }}>
             {/* Proposal cards will be mapped here */}
