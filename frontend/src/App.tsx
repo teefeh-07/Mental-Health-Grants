@@ -3,7 +3,12 @@ import { Navbar } from './components/Navbar';
 import { CreateProposalModal } from './components/CreateProposalModal';
 import { ProposalFilters } from './components/ProposalFilters';
 import { ProposalCard, Proposal } from './components/ProposalCard';
+import { AppConfig, UserSession } from '@stacks/connect';
+import { useDAOState } from './hooks/useDAOState';
 import './index.css';
+
+const appConfig = new AppConfig(['store_write', 'publish_data']);
+const userSession = new UserSession({ appConfig });
 
 const MOCK_PROPOSALS: (Proposal & { category: string })[] = [
   { id: 1, title: 'Youth Mental Health Support', amount: 5000, status: 'active', votes: { yes: 1200, no: 300 }, category: 'Youth' },
@@ -12,6 +17,12 @@ const MOCK_PROPOSALS: (Proposal & { category: string })[] = [
 ];
 
 function App() {
+  const address = userSession.isUserSignedIn()
+    ? userSession.loadUserData().profile.stxAddress.mainnet
+    : undefined;
+
+  const { proposalCount, userVotingPower, loading } = useDAOState(address);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState('All');
 
@@ -44,8 +55,18 @@ function App() {
 
         <aside style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           <div className="glass-panel" style={{ padding: '1.5rem' }}>
+            <h3>DAO Stats</h3>
+            <p style={{ fontSize: '1.5rem', fontWeight: 600, margin: '1rem 0', color: 'var(--color-primary)' }}>
+              {proposalCount} Proposals
+            </p>
+            <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>
+              My Voting Power: {userVotingPower} MHG
+            </p>
+          </div>
+
+          <div className="glass-panel" style={{ padding: '1.5rem' }}>
             <h3>DAO Treasury</h3>
-            <p style={{ fontSize: '2rem', fontWeight: 700, margin: '1rem 0', color: 'var(--color-primary)' }}>
+            <p style={{ fontSize: '2rem', fontWeight: 700, margin: '1rem 0', color: 'var(--color-secondary)' }}>
               1,250,400 STX
             </p>
             <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>
