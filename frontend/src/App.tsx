@@ -1,7 +1,10 @@
+import { useState } from 'react';
 import { Navbar } from './components/Navbar';
+import { CreateProposalModal } from './components/CreateProposalModal';
 import './index.css';
 
 function App() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <div className="container" style={{ padding: '2rem 0' }}>
       <Navbar />
