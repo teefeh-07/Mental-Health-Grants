@@ -83,6 +83,26 @@
   )
 )
 
+(define-public (vote-on-proposal (proposal-id uint) (vote bool))
+  (let
+    (
+      (proposal (unwrap! (map-get? proposals proposal-id) err-not-found))
+      (voter-power (default-to u0 (map-get? member-voting-power tx-sender)))
+    )
+    (asserts! (> voter-power u0) err-unauthorized)
+    (asserts! (<= block-height (get end-block proposal)) err-unauthorized) ;; voting ended
+    (asserts! (is-none (map-get? votes { proposal-id: proposal-id, voter: tx-sender })) err-already-exists)
+    
+    (if vote
+      (map-set proposals proposal-id (merge proposal { yes-votes: (+ (get yes-votes proposal) voter-power) }))
+      (map-set proposals proposal-id (merge proposal { no-votes: (+ (get no-votes proposal) voter-power) }))
+    )
+    
+    (map-set votes { proposal-id: proposal-id, voter: tx-sender } { vote: vote, amount: voter-power })
+    (ok true)
+  )
+)
+
 ;; read only functions
 ;;
 
