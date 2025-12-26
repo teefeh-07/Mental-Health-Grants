@@ -103,6 +103,14 @@
   )
 )
 
+(define-public (register-member (member principal) (power uint))
+  (begin
+    (asserts! (is-eq tx-sender contract-owner) err-owner-only)
+    (map-set member-voting-power member power)
+    (ok true)
+  )
+)
+
 ;; read only functions
 ;;
 
