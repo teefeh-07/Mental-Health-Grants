@@ -20,6 +20,10 @@
 
 ;; data vars
 ;;
+(define-data-var proposal-count uint u0)
+(define-data-var voting-period uint u1440) ;; ~10 days in blocks
+(define-data-var execution-delay uint u144) ;; ~1 day in blocks
+(define-data-var quorum-threshold uint u20) ;; 20% quorum required
 
 ;; data maps
 ;;
