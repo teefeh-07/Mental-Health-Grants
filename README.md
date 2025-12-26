@@ -1,1 +1,2 @@
-Readme
+# Mental Health Grants DAO 🧠✨
+
