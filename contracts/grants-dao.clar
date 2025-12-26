@@ -111,6 +111,28 @@
   )
 )
 
+(define-public (execute-proposal (proposal-id uint))
+  (let
+    (
+      (proposal (unwrap! (map-get? proposals proposal-id) err-not-found))
+      (total-votes (+ (get yes-votes proposal) (get no-votes proposal)))
+    )
+    (asserts! (not (get executed proposal)) err-already-exists)
+    (asserts! (> block-height (get end-block proposal)) err-unauthorized) ;; voting period not over
+    
+    ;; Simple majority check
+    (asserts! (> (get yes-votes proposal) (get no-votes proposal)) err-unauthorized)
+    
+    ;; Mark as executed
+    (map-set proposals proposal-id (merge proposal { executed: true }))
+    
+    ;; Logic for STX transfer would go here, 
+    ;; but avoiding as-contract per user instructions.
+    
+    (ok true)
+  )
+)
+
 ;; read only functions
 ;;
 
