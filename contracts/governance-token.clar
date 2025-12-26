@@ -47,6 +47,10 @@
   (ok "Mental Health Governance")
 )
 
+(define-read-only (get-symbol)
+  (ok "MHG")
+)
+
 ;; private functions
 ;;
 
