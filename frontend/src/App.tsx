@@ -1,7 +1,10 @@
+import { useState } from 'react';
 import { Navbar } from './components/Navbar';
+import { CreateProposalModal } from './components/CreateProposalModal';
 import './index.css';
 
 function App() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <div className="container" style={{ padding: '2rem 0' }}>
       <Navbar />
@@ -29,12 +32,18 @@ function App() {
 
           <div className="glass-panel" style={{ padding: '1.5rem' }}>
             <h3>Quick Actions</h3>
-            <button className="btn-primary" style={{ width: '100%', marginTop: '1rem' }}>
+            <button
+              className="btn-primary"
+              style={{ width: '100%', marginTop: '1rem' }}
+              onClick={() => setIsModalOpen(true)}
+            >
               Create Grant Proposal
             </button>
           </div>
         </aside>
       </main>
+
+      {isModalOpen && <CreateProposalModal onClose={() => setIsModalOpen(false)} />}
     </div>
   );
 }
