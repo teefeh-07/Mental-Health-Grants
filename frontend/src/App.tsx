@@ -32,12 +32,18 @@ function App() {
 
           <div className="glass-panel" style={{ padding: '1.5rem' }}>
             <h3>Quick Actions</h3>
-            <button className="btn-primary" style={{ width: '100%', marginTop: '1rem' }}>
+            <button
+              className="btn-primary"
+              style={{ width: '100%', marginTop: '1rem' }}
+              onClick={() => setIsModalOpen(true)}
+            >
               Create Grant Proposal
             </button>
           </div>
         </aside>
       </main>
+
+      {isModalOpen && <CreateProposalModal onClose={() => setIsModalOpen(false)} />}
     </div>
   );
 }
