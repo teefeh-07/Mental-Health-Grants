@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { submitProposalTx } from '../services/contractService';
 
 export const CreateProposalModal = ({ onClose }: { onClose: () => void }) => {
     const [title, setTitle] = useState('');
@@ -56,7 +57,11 @@ export const CreateProposalModal = ({ onClose }: { onClose: () => void }) => {
                         <option value="Research">Research</option>
                         <option value="Community">Community</option>
                     </select>
-                    <button className="btn-primary" style={{ marginTop: '1rem' }}>
+                    <button
+                        className="btn-primary"
+                        style={{ marginTop: '1rem' }}
+                        onClick={() => submitProposalTx(title, description, parseInt(amount), recipient)}
+                    >
                         Submit Proposal
                     </button>
                 </div>
