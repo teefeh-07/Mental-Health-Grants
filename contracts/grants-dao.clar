@@ -139,6 +139,10 @@
   (map-get? proposals proposal-id)
 )
 
+(define-read-only (get-proposal-count)
+  (var-get proposal-count)
+)
+
 ;; private functions
 ;;
 
