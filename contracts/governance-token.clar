@@ -67,7 +67,7 @@
 )
 
 (define-read-only (get-total-supply)
-  (ok (ft-get-total-supply mhg-token))
+  (ok (ft-get-supply mhg-token))
 )
 
 (define-read-only (get-token-uri)
