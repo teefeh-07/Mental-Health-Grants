@@ -33,7 +33,14 @@
 ;;
 
 ;; public functions
-;;
+(define-public (transfer (amount uint) (sender principal) (recipient principal) (memo (optional (buff 34))))
+  (begin
+    (asserts! (is-eq tx-sender sender) err-owner-only)
+    (try! (ft-transfer? mhg-token amount sender recipient))
+    (match memo to-print (print to-print) 0x)
+    (ok true)
+  )
+)
 
 ;; read only functions
 ;;
