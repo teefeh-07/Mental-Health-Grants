@@ -4,6 +4,7 @@ import {
     stringAsciiCV,
     stringUtf8CV,
     principalCV,
+    boolCV,
     AnchorMode,
     PostConditionMode,
 } from '@stacks/transactions';
@@ -33,6 +34,27 @@ export const submitProposalTx = async (
         },
         onCancel: () => {
             console.log('Transaction cancelled');
+        },
+    });
+};
+
+export const voteOnProposalTx = async (proposalId: number, vote: boolean) => {
+    await openContractCall({
+        network: NETWORK,
+        contractAddress: CONTRACT_ADDRESS,
+        contractName: DAO_CONTRACT_NAME,
+        functionName: 'vote-on-proposal',
+        functionArgs: [
+            uintCV(proposalId),
+            boolCV(vote),
+        ],
+        anchorMode: AnchorMode.Any,
+        postConditionMode: PostConditionMode.Deny,
+        onFinish: (data) => {
+            console.log('Vote broadcasted:', data);
+        },
+        onCancel: () => {
+            console.log('Vote cancelled');
         },
     });
 };
