@@ -27,3 +27,6 @@ Empowering decentralized, transparent, and community-driven funding for mental h
 - `proposal-manager.clar`: Specialized logic for handling complex proposal states.
 - `treasury-manager.clar`: Secure asset management and distribution.
 
+---
+*Built with ❤️ using a Micro-Commit strategy to ensure high granularity and transparency.*
+
