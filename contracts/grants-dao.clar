@@ -55,6 +55,33 @@
 
 ;; public functions
 ;;
+(define-public (create-proposal (title (string-ascii 100)) (description (string-utf8 500)) (amount uint) (recipient principal))
+  (let
+    (
+      (proposal-id (+ (var-get proposal-count) u1))
+      (start-block block-height)
+      (end-block (+ block-height (var-get voting-period)))
+    )
+    (asserts! (> amount u0) err-invalid-params)
+    (asserts! (> (len title) u0) err-invalid-params)
+    (map-set proposals proposal-id
+      {
+        proposer: tx-sender,
+        title: title,
+        description: description,
+        amount: amount,
+        recipient: recipient,
+        start-block: start-block,
+        end-block: end-block,
+        executed: false,
+        yes-votes: u0,
+        no-votes: u0
+      }
+    )
+    (var-set proposal-count proposal-id)
+    (ok proposal-id)
+  )
+)
 
 ;; read only functions
 ;;
