@@ -55,6 +55,18 @@
   (ok u6)
 )
 
+(define-read-only (get-balance (account principal))
+  (ok (ft-get-balance mhg-token account))
+)
+
+(define-read-only (get-total-supply)
+  (ok (ft-get-total-supply mhg-token))
+)
+
+(define-read-only (get-token-uri)
+  (ok none)
+)
+
 ;; private functions
 ;;
 
